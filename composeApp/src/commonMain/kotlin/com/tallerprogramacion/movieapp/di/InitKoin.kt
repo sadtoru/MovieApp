@@ -6,7 +6,6 @@ import org.koin.dsl.KoinAppDeclaration
 fun initKoin(config: KoinAppDeclaration? = null){
     startKoin {
         config?.invoke(this)
-        //acá lo comento porque hay que crear completar el archivo Modules en di
-        //modules(sharedModules)
+        modules(sharedModules)
     }
 }

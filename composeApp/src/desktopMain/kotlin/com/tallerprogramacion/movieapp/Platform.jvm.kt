@@ -1,6 +1,5 @@
 package com.tallerprogramacion.movieapp
 
-import android.os.Build
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -11,16 +10,15 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class AndroidPlatform : Platform {
-    override val name: String = "Android ${Build.VERSION.SDK_INT}"
+class JVMPlatform : Platform {
+    override val name: String = "Java ${System.getProperty("java.version")}"
 }
 
-actual fun getPlatform(): Platform = AndroidPlatform()
+actual fun getPlatform(): Platform = JVMPlatform()
+
 actual fun createHttpClient(): HttpClient {
+
     return HttpClient(CIO) {
-//        engine {
-//            proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("proxy.jus.gov.ar", 8080))
-//        }
         install(ContentNegotiation) {
             json(Json { ignoreUnknownKeys = true })
         }

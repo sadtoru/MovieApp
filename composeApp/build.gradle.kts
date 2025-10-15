@@ -24,6 +24,7 @@ kotlin {
     }
 
     listOf(
+        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -145,7 +146,7 @@ kotlin {
         }
         jsMain.dependencies {
             // KTOR JS
-            implementation(libs.ktor.client.js)  // Ensure you're using the correct version
+            implementation(libs.ktor.client.js)
         }
     }
 }
@@ -204,8 +205,7 @@ buildkonfig {
     packageName = "com.tallerprogramacion.movieapp"
 
     defaultConfigs {
-        buildConfigField (
-            FieldSpec.Type.STRING, "TMDB_API_KEY", (localProperties.getProperty("TMDB_API_KEY") ?: "missing api key")
+        buildConfigField (FieldSpec.Type.STRING, "TMDB_API_KEY", (localProperties.getProperty("TMDB_API_KEY") ?: "missing api key")
         )
     }
 }
