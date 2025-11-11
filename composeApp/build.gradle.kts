@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.sqldelight)
     id("com.codingfeline.buildkonfig")
     id("com.google.devtools.ksp")
     id("dev.mokkery") version "2.7.0"
@@ -70,6 +71,8 @@ kotlin {
             //KTOR ANDROID
             implementation(libs.ktor.client.okhttp)
             implementation(libs.ktor.client.cio)
+            //SQLDELIGHT ANDROID
+            implementation(libs.sqldelight.android.driver)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -96,6 +99,10 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+
+            //SQLDELIGHT
+            implementation(libs.sqldelight.runtime)
+            implementation(libs.sqldelight.coroutines.extensions)
 
             //NAVIGATION
             implementation(libs.navigation.compose)
@@ -136,17 +143,23 @@ kotlin {
         iosMain.dependencies {
             //KTOR
             implementation(libs.ktor.client.darwin)
+            //SQLDELIGHT iOS
+            implementation(libs.sqldelight.native.driver)
         }
 
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.cio)
+            //SQLDELIGHT DESKTOP
+            implementation(libs.sqldelight.sqlite.driver)
 
         }
         jsMain.dependencies {
             // KTOR JS
             implementation(libs.ktor.client.js)
+            //SQLDELIGHT JS
+            implementation(libs.sqldelight.sqljs.driver)
         }
     }
 }
@@ -207,6 +220,14 @@ buildkonfig {
     defaultConfigs {
         buildConfigField (FieldSpec.Type.STRING, "TMDB_API_KEY", (localProperties.getProperty("TMDB_API_KEY") ?: "missing api key")
         )
+    }
+}
+
+sqldelight {
+    databases {
+        create("MovieDatabase") {
+            packageName.set("com.tallerprogramacion.movieapp.cache")
+        }
     }
 }
 

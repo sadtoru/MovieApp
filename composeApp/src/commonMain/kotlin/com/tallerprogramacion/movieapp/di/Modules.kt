@@ -1,5 +1,9 @@
 package com.tallerprogramacion.movieapp.di
 
+import com.tallerprogramacion.movieapp.cache.DatabaseDriverFactory
+import com.tallerprogramacion.movieapp.cache.LocalDataSource
+import com.tallerprogramacion.movieapp.cache.MovieDatabase
+import com.tallerprogramacion.movieapp.createHttpClient
 import com.tallerprogramacion.movieapp.data.remote.TMDBApi
 import com.tallerprogramacion.movieapp.data.repository.MovieRepositoryImpl
 import com.tallerprogramacion.movieapp.data.repository.TVShowRepositoryImpl
@@ -19,11 +23,16 @@ import io.ktor.client.HttpClient
 import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
+private val cacheModule = module {
+    single { MovieDatabase(get<DatabaseDriverFactory>().createDriver()) }
+    single { LocalDataSource(get()) }
+}
+
 private val dataModule = module {
-    single { HttpClient() }
-    single { TMDBApi() }
-    single<MovieRepository> { MovieRepositoryImpl(get()) }
-    single<TVShowRepository> { TVShowRepositoryImpl(get()) }
+    single<HttpClient> { createHttpClient() }
+    single { TMDBApi(get()) }
+    single<MovieRepository> { MovieRepositoryImpl(get(), get()) }
+    single<TVShowRepository> { TVShowRepositoryImpl(get(), get()) }
 
 }
 
@@ -45,4 +54,4 @@ private val viewModelModule = module {
 }
 
 
-var sharedModules = listOf(domainModule, dataModule, viewModelModule)
+var sharedModules = listOf(cacheModule, domainModule, dataModule, viewModelModule)

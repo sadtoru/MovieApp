@@ -1,0 +1,41 @@
+CREATE TABLE IF NOT EXISTS movie_detail (
+    id INTEGER PRIMARY KEY NOT NULL,
+    title TEXT,
+    overview TEXT,
+    poster_url TEXT,
+    backdrop_url TEXT,
+    release_date TEXT,
+    vote_average REAL,
+    vote_count INTEGER,
+    popularity REAL,
+    adult INTEGER,
+    budget INTEGER,
+    revenue INTEGER,
+    runtime INTEGER,
+    trailer_url TEXT,
+    collection_id INTEGER,
+    collection_name TEXT,
+    collection_poster_path TEXT,
+    collection_backdrop_path TEXT,
+    cached_at INTEGER NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS movie_detail_id ON movie_detail(id);
+
+insertMovieDetail:
+INSERT OR REPLACE INTO movie_detail(
+    id, title, overview, poster_url, backdrop_url, release_date, vote_average,
+    vote_count, popularity, adult, budget, revenue, runtime, trailer_url,
+    collection_id, collection_name, collection_poster_path, collection_backdrop_path, cached_at
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectMovieDetailById:
+SELECT * FROM movie_detail WHERE id = ?;
+
+deleteMovieDetailById:
+DELETE FROM movie_detail WHERE id = ?;
+
+clearAllMovieDetails:
+DELETE FROM movie_detail;
+

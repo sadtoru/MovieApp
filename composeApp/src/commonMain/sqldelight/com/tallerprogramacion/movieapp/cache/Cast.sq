@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS cast (
+    id INTEGER PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    character TEXT NOT NULL,
+    profile_path TEXT NOT NULL,
+    movie_id INTEGER NOT NULL,
+    cached_at INTEGER NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS cast_movie_id ON cast(movie_id);
+
+insertCast:
+INSERT OR REPLACE INTO cast(id, name, character, profile_path, movie_id, cached_at)
+VALUES (?, ?, ?, ?, ?, ?);
+
+selectCastByMovieId:
+SELECT * FROM cast WHERE movie_id = ? ORDER BY id;
+
+deleteCastByMovieId:
+DELETE FROM cast WHERE movie_id = ?;
+
+clearAllCast:
+DELETE FROM cast;
+

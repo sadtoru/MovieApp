@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS movie (
+    id INTEGER PRIMARY KEY NOT NULL,
+    title TEXT NOT NULL,
+    overview TEXT,
+    poster_url TEXT,
+    release_date TEXT,
+    vote_average REAL,
+    vote_count INTEGER,
+    popularity REAL,
+    adult INTEGER,
+    trailer_url TEXT,
+    cache_key TEXT NOT NULL,
+    cached_at INTEGER NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS movie_cache_key ON movie(cache_key);
+
+insertMovie:
+INSERT OR REPLACE INTO movie(
+    id, title, overview, poster_url, release_date, vote_average, vote_count,
+    popularity, adult, trailer_url, cache_key, cached_at
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectMoviesByCacheKey:
+SELECT * FROM movie WHERE cache_key = ? ORDER BY popularity DESC;
+
+deleteMoviesByCacheKey:
+DELETE FROM movie WHERE cache_key = ?;
+
+clearAllMovies:
+DELETE FROM movie;
+

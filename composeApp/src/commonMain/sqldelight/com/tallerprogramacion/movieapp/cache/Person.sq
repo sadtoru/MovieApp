@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS person (
+    id INTEGER PRIMARY KEY NOT NULL,
+    name TEXT,
+    birthday TEXT,
+    place_of_birth TEXT,
+    biography TEXT,
+    profile_path TEXT,
+    cached_at INTEGER NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS person_id ON person(id);
+
+insertPerson:
+INSERT OR REPLACE INTO person(id, name, birthday, place_of_birth, biography, profile_path, cached_at)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+selectPersonById:
+SELECT * FROM person WHERE id = ?;
+
+deletePersonById:
+DELETE FROM person WHERE id = ?;
+
+clearAllPersons:
+DELETE FROM person;
+
