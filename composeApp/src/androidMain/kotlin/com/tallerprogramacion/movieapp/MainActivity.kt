@@ -10,7 +10,7 @@ import com.tallerprogramacion.movieapp.di.initKoin
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState
+        super.onCreate(savedInstanceState)
 
         setContent {
             App()
