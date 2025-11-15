@@ -58,6 +58,7 @@ toolsCore = "1.0.0-alpha13"
 
 #SQLDELIGHT
 sqldelight = "2.0.0-alpha05"
+stately = "2.0.0"
 
 [libraries]
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPagerIndicators" }
@@ -127,6 +128,7 @@ sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", ver
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 sqldelight-sqljs-driver = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqldelight" }
+stately-common = { module = "co.touchlab:stately-common", version.ref = "stately" }
 
 
 

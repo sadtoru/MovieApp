@@ -15,7 +15,7 @@ class JsPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = JsPlatform()
-
+actual fun currentTimeMillis(): Long = kotlin.js.Date.now().toLong()
 actual fun createHttpClient(): HttpClient {
     return HttpClient(Js) {
         install(ContentNegotiation) {

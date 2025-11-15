@@ -160,6 +160,8 @@ kotlin {
             implementation(libs.ktor.client.js)
             //SQLDELIGHT JS
             implementation(libs.sqldelight.sqljs.driver)
+            // Required by SQLDelight sqljs-driver
+            implementation(libs.stately.common)
         }
     }
 }

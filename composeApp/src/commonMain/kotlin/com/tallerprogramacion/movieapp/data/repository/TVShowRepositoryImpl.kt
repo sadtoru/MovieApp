@@ -51,7 +51,7 @@ class TVShowRepositoryImpl(
                 emit(Resource.Error(Exception("Error de conexión y caché. ${e.message ?: "Error desconocido"}")))
             }
         } catch (e: Exception) {
-            Napier.e("Error fetching tv: ${e.message ?: e.javaClass.simpleName}")
+            Napier.e("Error fetching tv: ${e.message ?: e::class.simpleName}")
             // Intentar obtener de caché
             try {
                 val cachedTvShows = localDataSource.getTvShows("top_rated_tv_shows").first()

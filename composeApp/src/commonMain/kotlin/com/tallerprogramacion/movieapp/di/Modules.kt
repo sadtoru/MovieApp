@@ -3,6 +3,7 @@ package com.tallerprogramacion.movieapp.di
 import com.tallerprogramacion.movieapp.cache.DatabaseDriverFactory
 import com.tallerprogramacion.movieapp.cache.LocalDataSource
 import com.tallerprogramacion.movieapp.cache.MovieDatabase
+import com.tallerprogramacion.movieapp.cache.createDriverSync
 import com.tallerprogramacion.movieapp.createHttpClient
 import com.tallerprogramacion.movieapp.data.remote.TMDBApi
 import com.tallerprogramacion.movieapp.data.repository.MovieRepositoryImpl
@@ -24,7 +25,7 @@ import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 private val cacheModule = module {
-    single { MovieDatabase(get<DatabaseDriverFactory>().createDriver()) }
+    single { MovieDatabase(createDriverSync(get<DatabaseDriverFactory>())) }
     single { LocalDataSource(get()) }
 }
 

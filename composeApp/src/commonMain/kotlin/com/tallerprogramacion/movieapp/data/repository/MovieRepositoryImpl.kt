@@ -64,7 +64,7 @@ class MovieRepositoryImpl(
                 emit(Resource.Error(Exception("Error de conexión y caché. ${e.message ?: "Error desconocido"}")))
             }
         } catch (e: Exception) {
-            Napier.e("Error fetching movies: ${e.message ?: e.javaClass.simpleName}")
+            Napier.e("Error fetching movies: ${e.message ?: e::class.simpleName}")
             // Intentar obtener de caché
             try {
                 val cachedMovies = localDataSource.getMovies("popular_movies").first()
@@ -120,7 +120,7 @@ class MovieRepositoryImpl(
                 emit(Resource.Error(Exception("Error de conexión y caché. ${e.message ?: "Error desconocido"}")))
             }
         } catch (e: Exception) {
-            Napier.e("Error fetching movies: ${e.message ?: e.javaClass.simpleName}")
+            Napier.e("Error fetching movies: ${e.message ?: e::class.simpleName}")
             // Intentar obtener de caché
             try {
                 val cachedMovies = localDataSource.getMovies("top_rated_movies").first()
@@ -196,7 +196,7 @@ class MovieRepositoryImpl(
                 emit(Resource.Error(Exception("Error de conexión y caché. ${e.message ?: "Error desconocido"}")))
             }
         } catch (e: Exception) {
-            Napier.e("Error fetching movie detail: ${e.message ?: e.javaClass.simpleName}")
+            Napier.e("Error fetching movie detail: ${e.message ?: e::class.simpleName}")
             // Intentar obtener de caché
             try {
                 val cachedDetail = localDataSource.getMovieDetail(movieId)
@@ -252,7 +252,7 @@ class MovieRepositoryImpl(
                 emit(Resource.Error(Exception("Error de conexión y caché. ${e.message ?: "Error desconocido"}")))
             }
         } catch (e: Exception) {
-            Napier.e("Error fetching similar movies: ${e.message ?: e.javaClass.simpleName}")
+            Napier.e("Error fetching similar movies: ${e.message ?: e::class.simpleName}")
             // Intentar obtener de caché
             try {
                 val cachedMovies = localDataSource.getMovies("similar_movies_$movieId").first()
@@ -314,7 +314,7 @@ class MovieRepositoryImpl(
                 emit(Resource.Error(Exception("Error de conexión y caché. ${e.message ?: "Error desconocido"}")))
             }
         } catch (e: Exception) {
-            Napier.e("Error fetching cast: ${e.message ?: e.javaClass.simpleName}")
+            Napier.e("Error fetching cast: ${e.message ?: e::class.simpleName}")
             // Intentar obtener de caché
             try {
                 val cachedCast = localDataSource.getCast(movieId)
@@ -374,7 +374,7 @@ class MovieRepositoryImpl(
                 emit(Resource.Error(Exception("Error de conexión y caché. ${e.message ?: "Error desconocido"}")))
             }
         } catch (e: Exception) {
-            Napier.e("Error fetching person details: ${e.message ?: e.javaClass.simpleName}")
+            Napier.e("Error fetching person details: ${e.message ?: e::class.simpleName}")
             // Intentar obtener de caché
             try {
                 val cachedPerson = localDataSource.getPerson(personId)
@@ -430,7 +430,7 @@ class MovieRepositoryImpl(
                 emit(Resource.Error(Exception("Error de conexión y caché. ${e.message ?: "Error desconocido"}")))
             }
         } catch (e: Exception) {
-            Napier.e("Error fetching movies for actor: ${e.message ?: e.javaClass.simpleName}")
+            Napier.e("Error fetching movies for actor: ${e.message ?: e::class.simpleName}")
             // Intentar obtener de caché
             try {
                 val cachedMovies = localDataSource.getMovies("movies_for_actor_$personId").first()

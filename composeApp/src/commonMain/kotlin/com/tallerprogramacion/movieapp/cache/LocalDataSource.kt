@@ -3,6 +3,7 @@ package com.tallerprogramacion.movieapp.cache
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import com.tallerprogramacion.movieapp.cache.MovieDatabase
+import com.tallerprogramacion.movieapp.currentTimeMillis
 import com.tallerprogramacion.movieapp.domain.model.Cast
 import com.tallerprogramacion.movieapp.domain.model.Movie
 import com.tallerprogramacion.movieapp.domain.model.MovieDetail
@@ -16,7 +17,7 @@ class LocalDataSource(private val database: MovieDatabase) {
 
     // Movie
     suspend fun saveMovies(movies: List<Movie>, cacheKey: String) {
-        val cachedAt = System.currentTimeMillis()
+        val cachedAt = currentTimeMillis()
         database.transaction {
             database.movieQueries.deleteMoviesByCacheKey(cacheKey)
             movies.forEach { movie ->
@@ -62,7 +63,7 @@ class LocalDataSource(private val database: MovieDatabase) {
 
     // MovieDetail
     suspend fun saveMovieDetail(movieDetail: MovieDetail) {
-        val cachedAt = System.currentTimeMillis()
+        val cachedAt = currentTimeMillis()
         database.movieDetailQueries.insertMovieDetail(
             id = movieDetail.id.toLong(),
             title = movieDetail.title,
@@ -119,7 +120,7 @@ class LocalDataSource(private val database: MovieDatabase) {
 
     // Cast
     suspend fun saveCast(cast: List<Cast>, movieId: Int) {
-        val cachedAt = System.currentTimeMillis()
+        val cachedAt = currentTimeMillis()
         database.transaction {
             database.castQueries.deleteCastByMovieId(movieId.toLong())
             cast.forEach { castMember ->
@@ -150,7 +151,7 @@ class LocalDataSource(private val database: MovieDatabase) {
 
     // Person
     suspend fun savePerson(person: Person) {
-        val cachedAt = System.currentTimeMillis()
+        val cachedAt = currentTimeMillis()
         database.personQueries.insertPerson(
             id = person.id.toLong(),
             name = person.name,
@@ -180,7 +181,7 @@ class LocalDataSource(private val database: MovieDatabase) {
 
     // TvShow
     suspend fun saveTvShows(tvShows: List<TvShow>, cacheKey: String) {
-        val cachedAt = System.currentTimeMillis()
+        val cachedAt = currentTimeMillis()
         database.transaction {
             database.tvShowQueries.deleteTvShowsByCacheKey(cacheKey)
             tvShows.forEach { tvShow ->
