@@ -15,7 +15,7 @@ class JVMPlatform : Platform {
 }
 
 actual fun getPlatform(): Platform = JVMPlatform()
-
+actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 actual fun createHttpClient(): HttpClient {
 
     return HttpClient(CIO) {

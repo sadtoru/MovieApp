@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS tv_show (
+    id INTEGER PRIMARY KEY NOT NULL,
+    title TEXT,
+    overview TEXT,
+    poster_url TEXT,
+    release_date TEXT,
+    vote_average REAL,
+    vote_count INTEGER,
+    popularity REAL,
+    adult INTEGER,
+    cache_key TEXT NOT NULL,
+    cached_at INTEGER NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS tv_show_cache_key ON tv_show(cache_key);
+
+insertTvShow:
+INSERT OR REPLACE INTO tv_show(
+    id, title, overview, poster_url, release_date, vote_average, vote_count,
+    popularity, adult, cache_key, cached_at
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectTvShowsByCacheKey:
+SELECT * FROM tv_show WHERE cache_key = ? ORDER BY popularity DESC;
+
+deleteTvShowsByCacheKey:
+DELETE FROM tv_show WHERE cache_key = ?;
+
+clearAllTvShows:
+DELETE FROM tv_show;
+
